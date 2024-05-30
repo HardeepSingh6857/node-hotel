@@ -5,10 +5,15 @@ require('dotenv').config();
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.json()); // This data will be saved inside req.body.
+const PORT = process.env.PORT || 3000;
 
-app.get("/", function (req, res) {
-  console.log('Default routes');
-  console.log(req.body.PORT);
+// Middleware Function
+const logRequest = (req, res, next) => {
+  console.log( `[${new Date().toDateString()}] Request Made to : ${req.originalUrl}`);
+  next(); // Move on to the next phase
+}
+
+app.get("/", logRequest, function (req, res) {
   res.send("Welcome to our Hotel!!!");
 });
 
@@ -20,8 +25,7 @@ const menuItemRoutes = require('./routes/menuItemRoutes');
 app.use('/person', personRoutes);
 app.use('/menu', menuItemRoutes);
 
-const port = process.env.PORT || 3000;
 
-app.listen(port, () => {
+app.listen(PORT, () => {
   console.log("listening on port 3000");
 });
