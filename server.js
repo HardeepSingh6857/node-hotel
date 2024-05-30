@@ -7,6 +7,8 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json()); // This data will be saved inside req.body.
 
 app.get("/", function (req, res) {
+  console.log('Default routes');
+  console.log(req.body.PORT);
   res.send("Welcome to our Hotel!!!");
 });
 
