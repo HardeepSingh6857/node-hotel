@@ -9,11 +9,12 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware Function
 const logRequest = (req, res, next) => {
-  console.log( `[${new Date().toDateString()}] Request Made to : ${req.originalUrl}`);
+  console.log( `[${new Date().toLocaleDateString()}] Request Made to : ${req.originalUrl}`);
   next(); // Move on to the next phase
 }
 
-app.get("/", logRequest, function (req, res) {
+app.use(logRequest);
+app.get("/", function (req, res) {
   res.send("Welcome to our Hotel!!!");
 });
 

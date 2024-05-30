@@ -3,21 +3,8 @@ const express = require('express');
 const router = express.Router();
 
 const MenuItem  = require("../models/MenuItem");
-
-  router.post("/menu", async (req, res) => {
-    try {
-      const data = req.body;
-      const newMenuItem = new MenuItem(data);
-      const response = await newMenuItem.save();
-      console.log("Menu Item saved");
-      res.status(200).json(response);
-    } catch (err) {
-      console.log(err);
-      res.status(500).json({ error: "Internal server error" });
-    }
-  });
   
-  router.get('/menu', async (req, res) => {
+  router.get('/', async (req, res) => {
     try {
       const data = await MenuItem.find();
       console.log("Menu Item data fetched");
@@ -41,6 +28,19 @@ const MenuItem  = require("../models/MenuItem");
     }catch(err){
       console.log(err);
       res.status( 500).json({error:'Internal Server Error'});
+    }
+  });
+
+  router.post("/", async (req, res) => {
+    try {
+      const data = req.body;
+      const newMenuItem = new MenuItem(data);
+      const response = await newMenuItem.save();
+      console.log("Menu Item saved");
+      res.status(200).json(response);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ error: "Internal server error" });
     }
   });
 
