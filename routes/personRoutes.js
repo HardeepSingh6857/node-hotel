@@ -25,6 +25,7 @@ const Person = require("../models/Person");
 // * Save the new person to the database with await and async
 router.post("/", async (req, res) => {
   try {
+    console.log(req);
     const data = req.body; // Assuming the request body contains the person data
     const newPerson = new Person(data); // Create a new Person document using the Mongoose model
     const response = await newPerson.save(); // Save the new person to the database
