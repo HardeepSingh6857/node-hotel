@@ -5,6 +5,7 @@ require('dotenv').config();
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.json()); // This data will be saved inside req.body.
+const passport = require('./auth');
 const PORT = process.env.PORT || 3000;
 
 // Middleware Function
@@ -14,9 +15,13 @@ const logRequest = (req, res, next) => {
 }
 
 app.use(logRequest);
+const logcalAuthMiddleWare = passport.authenticate('local', {session: false});
+
 app.get("/", function (req, res) {
   res.send("Welcome to our Hotel!!!");
 });
+
+app.use(passport.initialize());
 
 // Import the router files
 const personRoutes = require('./routes/personRoutes');
